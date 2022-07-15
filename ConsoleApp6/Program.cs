@@ -82,7 +82,7 @@
                     listRandom.Head = this.Head;
                     for (int i = 0; i < Count; i++)
                     {
-                        sWrite.Write(listRandom.Head.Data + ";" + listRandom.Head.Random.Data + ":");
+                        sWrite.Write(listRandom.Head.Data + ":" + listRandom.Head.Random.Data + ";");
                         listRandom.Head = listRandom.Head.Next;
                     }
                 }
@@ -105,7 +105,7 @@
                     data=fileStream.ReadToEnd();
                 }
                
-                dataSplit = data.Split(":");
+                dataSplit = data.Split(";");
                 elemCount = dataSplit.Length-1;
                 Console.WriteLine("\nСчитанные и приведённые в читабельный вид данные");
                 for (int i = 0; i < elemCount; i++)
@@ -114,7 +114,7 @@
                 }
                 Console.WriteLine();
 
-                current.Data = dataSplit[0].Split(";")[0];
+                current.Data = dataSplit[0].Split(":")[0];
                 current.Previous = null;
                 current.Next = new ListNode();
                 this.Count = elemCount;
@@ -123,7 +123,7 @@
                 {
                         current.Next.Previous = current;
                         current = current.Next;
-                        current.Data = dataSplit[i].Split(";")[0];
+                        current.Data = dataSplit[i].Split(":")[0];
                         if (i != elemCount - 1)
                             current.Next = new ListNode();
                         else 
@@ -139,11 +139,11 @@
                                
                 for (int j = 0; j < elemCount; j++)
                 {
-                    if(dataSplit[j].Split(";")[0] == current.Data)
+                    if(dataSplit[j].Split(":")[0] == current.Data)
                     {
                         for (int findRand = 0; findRand < elemCount; findRand++)
                         {
-                            if (dataSplit[j].Split(";")[1] == CopyList.Data)
+                            if (dataSplit[j].Split(":")[1] == CopyList.Data)
                             {
                                 current.Random = CopyList;
                             }
