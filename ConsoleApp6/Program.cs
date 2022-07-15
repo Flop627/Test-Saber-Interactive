@@ -8,32 +8,32 @@
 
             ListRandom listRandom = new ListRandom();
             ListNode[] listNode = new ListNode[4];
-            for (int i = 0; i < 4; i++)
+          
+            for (int i = 0; i < listNode.Length; i++)
             {
                 listNode[i] = new ListNode();
-            }
+            }       
 
-            //
-            
-            listNode[0].Data = "Воздух";
+            listNode[0].Data = "Вода";
             listNode[0].Previous = null;
             listNode[0].Next = listNode[1];
             listNode[0].Random = listNode[1];
-
-            listNode[1].Data = "ГРИФОН";
+            
+            listNode[1].Data = "Земля";
             listNode[1].Previous = listNode[0];
             listNode[1].Next = listNode[2];
             listNode[1].Random = listNode[3];
-
-            listNode[2].Data = "компьютер";
+            
+            listNode[2].Data = "Огонь";
             listNode[2].Previous = listNode[1];
             listNode[2].Next = listNode[3];
             listNode[2].Random = listNode[0];
-
-            listNode[3].Data = "машина";
+            
+            listNode[3].Data = "Воздух";
             listNode[3].Previous = listNode[2];
             listNode[3].Next = null;
             listNode[3].Random = listNode[2];
+            
 
             listRandom.Count =listNode.Length;
             listRandom.Head = listNode[0];
@@ -49,11 +49,12 @@
                 {
                     Console.WriteLine(item.Data + " " + "Следующего нету");
                 }
-            }            
+            }           
+           
 
             Stream stream = null;
             listRandom.Serialize(stream);
-            Console.WriteLine("=============Deserialize=============");
+            
             listRandom.Deserialize(stream);
 
             Console.ReadLine();
@@ -75,26 +76,24 @@
         
             public void Serialize(Stream s)
             {
-                List<ListNode> list = new List<ListNode>();
-                for (ListNode thisNode=this.Head; thisNode != null; thisNode=thisNode.Next)
-                { 
-                    list.Add(thisNode);
-                }
-
                 using (StreamWriter sWrite = new StreamWriter($"{Directory.GetCurrentDirectory() + (char)92}test.txt"))
-                {
-                    foreach (ListNode item in list)
+                {                   
+                    ListRandom listRandom = new ListRandom();
+                    listRandom.Head = this.Head;
+                    for (int i = 0; i < Count; i++)
                     {
-                        sWrite.Write(item.Data + ";" + item.Random.Data + ":");
+                        sWrite.Write(listRandom.Head.Data + ";" + listRandom.Head.Random.Data + ":");
+                        listRandom.Head = listRandom.Head.Next;
                     }
                 }
 
-                Console.WriteLine("List serialized");
+                Console.WriteLine("\n=============Serialized=============");
             }
         
             public void Deserialize(Stream s)
             {
-                int elemCount = 4; //считать количество
+                Console.WriteLine("\n=============Deserialize=============");
+                int elemCount; //считать количество
                 string data;
                 string[] dataSplit;
 
@@ -105,10 +104,10 @@
                 { 
                     data=fileStream.ReadToEnd();
                 }
-                
-
+               
                 dataSplit = data.Split(":");
-                Console.WriteLine("\nСчитанные и приведённые в читабельный вид данныеданные");
+                elemCount = dataSplit.Length-1;
+                Console.WriteLine("\nСчитанные и приведённые в читабельный вид данные");
                 for (int i = 0; i < elemCount; i++)
                 {
                     Console.WriteLine(dataSplit[i]);
@@ -142,7 +141,7 @@
                 {
                     if(dataSplit[j].Split(";")[0] == current.Data)
                     {
-                        for (int findRand = 0; findRand <= elemCount-1; findRand++)
+                        for (int findRand = 0; findRand < elemCount; findRand++)
                         {
                             if (dataSplit[j].Split(";")[1] == CopyList.Data)
                             {
@@ -152,7 +151,6 @@
                         }
                         CopyList = this.Head;
                     }
-
                     current = current.Next;
                 }
                 
@@ -162,6 +160,9 @@
                 Console.WriteLine(current.Next.Data + " " + current.Next.Random.Data);
                 Console.WriteLine(current.Next.Next.Data + " " + current.Next.Next.Random.Data);
                 Console.WriteLine(current.Next.Next.Next.Data + " " + current.Next.Next.Next.Random.Data);
+
+                Console.WriteLine("\n=============Deserialize=============");
+
                 Console.ReadLine();
             }
 
