@@ -13,8 +13,9 @@
                 listNode[i] = new ListNode();
             }
 
-           
-            listNode[0].Data = "жопа";
+            //
+            
+            listNode[0].Data = "Воздух";
             listNode[0].Previous = null;
             listNode[0].Next = listNode[1];
             listNode[0].Random = listNode[1];
