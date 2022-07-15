@@ -13,10 +13,7 @@
                 listNode[i] = new ListNode();
             }
 
-            for (int i = 0; i < 42345; i++)
-            {
-
-            }
+           
             listNode[0].Data = "жопа";
             listNode[0].Previous = null;
             listNode[0].Next = listNode[1];
