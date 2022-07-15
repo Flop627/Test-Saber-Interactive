@@ -98,7 +98,7 @@
                 string[] dataSplit;
 
                 this.Head = new ListNode() { };
-                ListNode current = this.Head;
+                ListNode CurrentList = this.Head;
 
                 using (StreamReader fileStream = new StreamReader($"{Directory.GetCurrentDirectory() + (char)92}test.txt"))
                 { 
@@ -114,52 +114,52 @@
                 }
                 Console.WriteLine();
 
-                current.Data = dataSplit[0].Split(":")[0];
-                current.Previous = null;
-                current.Next = new ListNode();
+                CurrentList.Data = dataSplit[0].Split(":")[0];
+                CurrentList.Previous = null;
+                CurrentList.Next = new ListNode();
                 this.Count = elemCount;
 
                 for (int i = 1; i < elemCount; i++)
                 {
-                        current.Next.Previous = current;
-                        current = current.Next;
-                        current.Data = dataSplit[i].Split(":")[0];
+                    CurrentList.Next.Previous = CurrentList;
+                    CurrentList = CurrentList.Next;
+                    CurrentList.Data = dataSplit[i].Split(":")[0];
                         if (i != elemCount - 1)
-                            current.Next = new ListNode();
+                        CurrentList.Next = new ListNode();
                         else 
                         {
-                            this.Tail = current;
+                            this.Tail = CurrentList;
                         }                    
                 }
 
-                current=this.Head;
-                ListNode CopyList = current;
+                CurrentList = this.Head;
+                ListNode CopyList = CurrentList;
                 Console.WriteLine("Проинициализированный лист ");
                 Console.WriteLine(Head.Data + " " + Head.Next.Data + " " + Head.Next.Next.Data + " " +Head.Next.Next.Next.Data);
                                
                 for (int j = 0; j < elemCount; j++)
                 {
-                    if(dataSplit[j].Split(":")[0] == current.Data)
+                    if(dataSplit[j].Split(":")[0] == CurrentList.Data)
                     {
                         for (int findRand = 0; findRand < elemCount; findRand++)
                         {
                             if (dataSplit[j].Split(":")[1] == CopyList.Data)
                             {
-                                current.Random = CopyList;
+                                CurrentList.Random = CopyList;
                             }
                             CopyList = CopyList.Next;
                         }
                         CopyList = this.Head;
                     }
-                    current = current.Next;
+                    CurrentList = CurrentList.Next;
                 }
-                
-                current = this.Head;
+
+                CurrentList = this.Head;
                 Console.WriteLine("\nпроверка что все данные и рандомные элементы списка проинициализированы=-");
-                Console.WriteLine(current.Data + " " + current.Random.Data);
-                Console.WriteLine(current.Next.Data + " " + current.Next.Random.Data);
-                Console.WriteLine(current.Next.Next.Data + " " + current.Next.Next.Random.Data);
-                Console.WriteLine(current.Next.Next.Next.Data + " " + current.Next.Next.Next.Random.Data);
+                Console.WriteLine(CurrentList.Data + " " + CurrentList.Random.Data);
+                Console.WriteLine(CurrentList.Next.Data + " " + CurrentList.Next.Random.Data);
+                Console.WriteLine(CurrentList.Next.Next.Data + " " + CurrentList.Next.Next.Random.Data);
+                Console.WriteLine(CurrentList.Next.Next.Next.Data + " " + CurrentList.Next.Next.Next.Random.Data);
 
                 Console.WriteLine("\n=============Deserialize=============");
 
